@@ -7,6 +7,7 @@ repos:
         entry: poetry run black
         language: system
         types: [python]
+        pass_filenames: true   # default for most hooks
 
   # Ruff - linter with auto-fix
   - repo: local
@@ -16,12 +17,14 @@ repos:
         entry: poetry run ruff check
         language: system
         types: [python]
+        pass_filenames: true   # default for most hooks
 
       - id: ruff-format
         name: Ruff autoformat (Poetry venv)
         entry: poetry run ruff format
         language: system
         types: [python]
+        pass_filenames: true   # default for most hooks
 
   # Mypy - type checker
   - repo: local
@@ -31,6 +34,7 @@ repos:
         entry: poetry run mypy
         language: system
         types: [python]
+        pass_filenames: true   # default for most hooks
 
   # Pytest - run tests, enforce coverage, ignore "no tests collected"
   - repo: local
