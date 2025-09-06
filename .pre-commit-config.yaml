@@ -1,16 +1,44 @@
 repos:
-  - repo: https://github.com/psf/black
-    rev: 24.8.0
+  # Black - code formatter
+  - repo: local
     hooks:
       - id: black
+        name: Black (Poetry venv)
+        entry: poetry run black
+        language: system
+        types: [python]
 
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.2
+  # Ruff - linter with auto-fix
+  - repo: local
     hooks:
       - id: ruff
-      - id: ruff-format
+        name: Ruff (Poetry venv)
+        entry: poetry run ruff check
+        language: system
+        types: [python]
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.10.0
+      - id: ruff-format
+        name: Ruff autoformat (Poetry venv)
+        entry: poetry run ruff format
+        language: system
+        types: [python]
+
+  # Mypy - type checker
+  - repo: local
     hooks:
       - id: mypy
+        name: Mypy (Poetry venv)
+        entry: poetry run mypy
+        language: system
+        types: [python]
+
+  # Pytest - run tests, enforce coverage, ignore "no tests collected"
+  - repo: local
+    hooks:
+      - id: run-tests
+        name: Run Pytest (Poetry venv)
+        entry: bash scripts/run_tests.sh
+        language: system
+        types: [python]
+        always_run: true
+        pass_filenames: false
