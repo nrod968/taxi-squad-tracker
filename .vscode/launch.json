@@ -1,0 +1,42 @@
+{
+  "version": "0.1.0",
+  "configurations": [
+    {
+      "name": "Python: Debug script (run main.py)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/taxi_squad_tracker/main.py",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env",
+      "justMyCode": true,
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Python: Debug package as module (-m)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "taxi_squad_tracker.main",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src"
+      },
+      "justMyCode": true
+    },
+    {
+      "name": "Python: Debug pytest (single test)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": [
+        "tests/test_core.py::test_some_behavior",
+        "-q"
+      ],
+      "console": "integratedTerminal",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src"
+      },
+      "justMyCode": false
+    }
+  ]
+}

@@ -47,6 +47,7 @@ def main():
         print(f"Injury Status: {player.injuryStatus}")
         print(f"Acquisition Type: {player.acquisitionType}")
         print(f"On Team: {player.onTeamId}")
+        print(f"Lineup Slot: {player.lineupSlot}")
 
 
 if __name__ == "__main__":
