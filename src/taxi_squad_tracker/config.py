@@ -15,7 +15,7 @@ class Config:
 _config = None
 
 
-def load_config(path="config.yml"):
+def load_config(path: str = "config.yml") -> Config:
     """Load YAML config into nested object. Only loads once."""
     global _config
     if _config is None:
