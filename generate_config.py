@@ -35,6 +35,31 @@ espn_api:
   year: 2025                 # replace with your league year
   swid: "{YOUR_SWID}"        # replace with your SWID
   espn_s2: "{YOUR_ESPN_S2}"  # replace with your ESPN_S2
+
+# ================================
+# SMTP Email Configuration
+# ================================
+
+smtp:
+  server: smtp.gmail.com
+  port: 587
+  email: "{YOUR_GMAIL_ADDRESS}"  # replace with your gmail address
+  password: "{YOUR_GMAIL_APP_PASSWORD}"  # replace with your gmail app password
+  sms_gateways:
+    - "{phone_number}@txt.att.net"                # AT&T
+    - "{phone_number}@vtext.com"                  # Verizon
+    - "{phone_number}@tmomail.net"                # T-Mobile
+    - "{phone_number}@messaging.sprintpcs.com"    # Sprint
+    - "{phone_number}@mymetropcs.com"             # MetroPCS
+    - "{phone_number}@sms.myboostmobile.com"      # Boost Mobile
+    - "{phone_number}@sms.cricketwireless.net"    # Cricket Wireless
+    - "{phone_number}@msg.fi.google.com"          # Google Fi
+    - "{phone_number}@email.uscc.net"             # US Cellular
+    - "{phone_number}@vmobl.com"                  # Virgin Mobile
+  team_info:
+    - id: 1
+      phone_number: 0000000000
+      sms_gateway: "{ENTER_SMS_GATEWAY_HERE}"  # replace with your carrier's SMS gateway
 """
 
 
