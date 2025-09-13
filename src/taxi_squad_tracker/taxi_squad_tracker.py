@@ -35,8 +35,8 @@ def check_player_status(player) -> None:
 def enforce_bench_rule(team: Team, roster_size: int, ir_slots: int) -> None:
     core_roster_slots = roster_size - ir_slots
     allowable_roster_size = core_roster_slots - 1
-    core_roster_slots_in_use = sum(
-        1 for player in team.roster if player.lineupSlot != "IR"
+    core_roster_slots_in_use = len(
+        [player for player in team.roster if player.lineupSlot != "IR"]
     )
 
     if core_roster_slots_in_use > allowable_roster_size:

@@ -26,7 +26,6 @@ track = "taxi_squad_tracker.main:main"
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4.2"
 pytest-cov = "^6.2.1"
-black = "^25.1.0"
 ruff = "^0.12.12"
 mypy = "^1.17.1"
 pre-commit = "^4.3.0"

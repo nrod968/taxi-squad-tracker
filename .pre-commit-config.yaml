@@ -1,14 +1,4 @@
 repos:
-  # Black - code formatter
-  - repo: local
-    hooks:
-      - id: black
-        name: Black (Poetry venv)
-        entry: poetry run black
-        language: system
-        types: [python]
-        pass_filenames: true   # default for most hooks
-
   # Ruff - linter with auto-fix
   - repo: local
     hooks:
