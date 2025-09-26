@@ -1,0 +1,27 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "format",
+            "command": "${command:editor.action.formatDocument}"
+        },
+        {
+            "label": "fix-all",
+            "command": "${command:editor.action.fixAll}"
+        },
+        {
+            "label": "format-imports",
+            "command": "${command:editor.action.organizeImports}"
+        },
+        {
+            "label": "the-big-format",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "fix-all",
+                "format",
+                "format-imports",
+                "format"
+            ],
+        }
+    ]
+}

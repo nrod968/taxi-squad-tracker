@@ -16,6 +16,14 @@ repos:
         types: [python]
         pass_filenames: true   # default for most hooks
 
+      - id: ruff-fix
+        name: Ruff (Poetry venv)
+        entry: poetry run ruff check
+        args: [ --fix, --extend-select, I ]
+        language: system
+        types: [python]
+        pass_filenames: true   # default for most hooks
+
   # Mypy - type checker
   - repo: local
     hooks:
