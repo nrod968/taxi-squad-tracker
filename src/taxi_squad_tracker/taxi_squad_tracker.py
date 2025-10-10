@@ -5,7 +5,7 @@ from espn_api.football import League, Player, Team  # type: ignore
 # Replace most of this with a DB
 from .config import config
 from .league_utils import get_roster_size, number_of_ir_slots
-from .smtp import send_sms_via_email
+from .smtp import send_email
 
 
 def track(taxi_player_names: Iterable[str], league: League) -> None:
@@ -33,28 +33,31 @@ def enforce_taxi_rules(
     ir_slots: int,
 ) -> None:
     for player in taxi_players:
-        if not check_player_status(player):
+        if not is_taxi_squad_player_on_bench(player):
             team_id = player.onTeamId
             team_config = config.smtp.team_info[team_id - 1]
-            send_sms_via_email(
+            send_email(
                 team_config.email,
-                f"Are you sure you want to activate {player.name} from your Taxi Squad? You will lose their bench spot for the rest of the season.",
+                f"Are you sure you want to activate {player.name} from your Taxi Squad? You will lose their bench spot for the rest of the season. If so, you will need to drop a player to adhere to taxi squad rules.",
             )
 
     for team in teams_without_taxi:
-        check_roster_validity(team, roster_size, ir_slots)
-        team_id = team.team_id
-        team_config = config.smtp.team_info[team_id - 1]
-        # commissioner_config = config.smtp.team_info[0]
+        if not is_roster_valid(team, roster_size, ir_slots):
+            team_id = team.team_id
+            team_config = config.smtp.team_info[team_id - 1]
+            commissioner_config = config.smtp.team_info[0]
 
-        send_sms_via_email(
-            team_config.email,
-            "Your team has no taxi spot, please drop a player within the next 2 hours before the commissioner is forced to take action.",
-        )
-        # send_sms_via_email(commissioner_config.phone_number, commissioner_config.sms_gateway, f"Just a heads up. {team.team_name} has no taxi squad spot and has too many players on their roster. They have been notified.")
+            send_email(
+                team_config.email,
+                "Your team has no taxi spot, please drop a player within the next 2 hours before the commissioner is forced to take action.",
+            )
+            send_email(
+                commissioner_config.email,
+                f"Just a heads up. {team.team_name} has no taxi squad spot and has too many players on their roster. They have been notified.",
+            )
 
 
-def check_player_status(player: Player) -> bool:
+def is_taxi_squad_player_on_bench(player: Player) -> bool:
     if not player.lineupSlot == "BE":
         print(
             f"Player {player.name} is not on the bench. Current slot: {player.lineupSlot}"
@@ -66,7 +69,7 @@ def check_player_status(player: Player) -> bool:
         return True
 
 
-def check_roster_validity(team: Team, roster_size: int, ir_slots: int) -> bool:
+def is_roster_valid(team: Team, roster_size: int, ir_slots: int) -> bool:
     core_roster_slots = roster_size - ir_slots
     allowable_roster_size = core_roster_slots - 1
     core_roster_slots_in_use = len(

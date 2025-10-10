@@ -9,7 +9,7 @@ EMAIL = config.smtp.email
 PASSWORD = config.smtp.password
 
 
-def send_sms_via_email(recipient: str, message: str):
+def send_email(recipient: str, message: str):
     msg = MIMEText(message)
     msg["From"] = EMAIL
     msg["To"] = recipient
@@ -20,6 +20,6 @@ def send_sms_via_email(recipient: str, message: str):
             server.starttls()
             server.login(EMAIL, PASSWORD)
             server.sendmail(EMAIL, [recipient], msg.as_string())
-        print(f"SMS sent to {recipient}")
+        print(f"Email sent to {recipient}")
     except Exception as e:
-        print(f"Failed to send SMS to {recipient}: {e}")
+        print(f"Failed to send Email to {recipient}: {e}")
